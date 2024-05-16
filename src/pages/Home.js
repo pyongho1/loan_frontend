@@ -8,6 +8,7 @@ const Home = () => {
     applied: 0,
     approved: 0,
     denied: 0,
+    waiting: 0, // Add waiting decision status
   });
 
   const [monthlyData, setMonthlyData] = useState({
@@ -26,8 +27,11 @@ const Home = () => {
           (loan) => loan.status === "approved"
         ).length;
         const denied = loans.filter((loan) => loan.status === "denied").length;
+        const waiting = loans.filter(
+          (loan) => loan.status === "waiting decision"
+        ).length;
 
-        setLoanData({ applied, approved, denied });
+        setLoanData({ applied, approved, denied, waiting });
 
         // Process data for the line chart (monthly repayments)
         const monthlyCounts = new Array(7).fill(0); // Assuming data for 7 months (Jan-Jul)
@@ -49,11 +53,16 @@ const Home = () => {
 
   // Data for the bar chart
   const barData = {
-    labels: ["Applied", "Approved", "Denied"],
+    labels: ["Applied", "Approved", "Denied", "Waiting Decision"],
     datasets: [
       {
         label: "Loans by status",
-        data: [loanData.applied, loanData.approved, loanData.denied],
+        data: [
+          loanData.applied,
+          loanData.approved,
+          loanData.denied,
+          loanData.waiting,
+        ],
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,

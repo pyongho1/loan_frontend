@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import LoanList from "../components/LoanList";
 
 const AdminView = () => {
   const [loans, setLoans] = useState([]);
 
   useEffect(() => {
-    fetch("/api/loans")
-      .then((response) => response.json())
-      .then((data) => setLoans(data));
+    axios
+      .get("http://localhost:5001/api/loans")
+      .then((response) => setLoans(response.data))
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   const updateStatus = (id, status) => {
-    fetch(`/api/loans/${id}/status`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    }).then(() =>
-      setLoans(
-        loans.map((loan) => (loan.id === id ? { ...loan, status } : loan))
+    axios
+      .put(`http://localhost:5001/api/loans/${id}/status`, { status })
+      .then(() =>
+        setLoans(
+          loans.map((loan) => (loan.id === id ? { ...loan, status } : loan))
+        )
       )
-    );
+      .catch((error) => console.error("Error updating status:", error));
   };
 
   return (

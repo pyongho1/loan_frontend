@@ -6,11 +6,13 @@ import NonprofitView from "./pages/NonprofitView";
 const App = () => (
   <Router>
     <Routes>
-      <Route path="/admin" component={AdminView} />
-      <Route
+      {/* <Route path="/admin" component={AdminView} /> */}
+      <Route path="/admin" element={<AdminView />} />
+      {/* <Route
         path="/user/:userId"
         render={({ match }) => <NonprofitView userId={match.params.userId} />}
-      />
+      /> */}
+      <Route path="/user/:userId" element={<NonprofitView />} />
     </Routes>
   </Router>
 );

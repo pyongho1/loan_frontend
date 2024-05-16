@@ -5,6 +5,7 @@ import NonprofitView from "./pages/NonprofitView";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import AdminApprove from "./pages/AdminApprove";
+import Footer from "./components/Footer";
 
 const App = () => (
   <>
@@ -17,6 +18,7 @@ const App = () => (
         <Route path="/user/:userId" element={<NonprofitView />} />
       </Routes>
     </Router>
+    <Footer />
   </>
 );
 

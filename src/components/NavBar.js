@@ -2,8 +2,8 @@ import React from "react";
 import {
   Navbar,
   Nav,
-  Form,
-  FormControl,
+  // Form,
+  // FormControl,
   Button,
   Container,
   Row,
@@ -16,7 +16,7 @@ const NavBar = () => {
       <Container fluid>
         <Row className="w-100">
           <Col xs="auto">
-            <Navbar.Brand href="/">Loan Management</Navbar.Brand>
+            <Navbar.Brand href="/">LOAN MANAGEMENT</Navbar.Brand>
           </Col>
           <Col>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

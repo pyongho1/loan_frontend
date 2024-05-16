@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import LoanForm from "../components/LoanForm";
 import LoanList from "../components/LoanList";
 
-const NonprofitView = ({ userId }) => {
+const NonprofitView = () => {
+  const { userId } = useParams();
   const [loans, setLoans] = useState([]);
 
   useEffect(() => {
-    fetch("/api/loans")
-      .then((response) => response.json())
-      .then((data) => setLoans(data.filter((loan) => loan.userId === userId)));
+    axios
+      .get("http://localhost:5001/api/loans")
+      .then((response) =>
+        setLoans(response.data.filter((loan) => loan.userId === userId))
+      )
+      .catch((error) => console.error("Error fetching data:", error));
   }, [userId]);
 
   const addLoan = (loan) => {
-    fetch("/api/loans", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loan),
-    })
-      .then((response) => response.json())
-      .then((newLoan) => setLoans([...loans, newLoan]));
+    axios
+      .post("http://localhost:5001/api/loans", loan)
+      .then((response) => setLoans([...loans, response.data]))
+      .catch((error) => console.error("Error adding loan:", error));
   };
 
   return (

@@ -1,7 +1,9 @@
 import React from "react";
+import { Table } from "react-bootstrap";
+import "./LoanList.css"; // Import the CSS file for custom styles
 
 const LoanList = ({ loans }) => (
-  <table>
+  <Table striped bordered hover>
     <thead>
       <tr>
         <th>Full Name</th>
@@ -13,12 +15,20 @@ const LoanList = ({ loans }) => (
       {loans.map((loan) => (
         <tr key={loan.id}>
           <td>{loan.fullName}</td>
-          <td>{loan.loanAmount}</td>
-          <td>{loan.status}</td>
+          <td>${loan.loanAmount}</td>
+          <td>
+            <span
+              className={`status-label ${loan.status
+                .replace(/\s/g, "-")
+                .toLowerCase()}`}
+            >
+              {loan.status}
+            </span>
+          </td>
         </tr>
       ))}
     </tbody>
-  </table>
+  </Table>
 );
 
 export default LoanList;

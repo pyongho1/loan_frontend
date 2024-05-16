@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LoanList from "../components/LoanList";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormControl,
+  Button,
+} from "react-bootstrap";
 
 const AdminView = () => {
   const [loans, setLoans] = useState([]);
@@ -12,39 +20,32 @@ const AdminView = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const updateStatus = (id, status) => {
-    axios
-      .put(`http://localhost:5001/api/loans/${id}/status`, { status })
-      .then(() =>
-        setLoans(
-          loans.map((loan) => (loan.id === id ? { ...loan, status } : loan))
-        )
-      )
-      .catch((error) => console.error("Error updating status:", error));
-  };
-
   return (
-    <div>
-      <h2>Admin View</h2>
+    <Container>
+      <h2 className="mt-4">Overview</h2>
+      <Form className="my-4">
+        <FormControl type="text" placeholder="Search loan" />
+      </Form>
+      <Row className="mb-4">
+        <Col>
+          <Button variant="outline-secondary">All loans</Button>
+          <Button variant="outline-secondary" className="ml-2">
+            Due soon
+          </Button>
+          <Button variant="outline-secondary" className="ml-2">
+            Overdue
+          </Button>
+          <Button variant="outline-secondary" className="ml-2">
+            Approved
+          </Button>
+          <Button variant="outline-secondary" className="ml-2">
+            Declined
+          </Button>
+        </Col>
+      </Row>
+      <h3>Active Loans</h3>
       <LoanList loans={loans} />
-      <div>
-        {loans
-          .filter((loan) => loan.status === "waiting decision")
-          .map((loan) => (
-            <div key={loan.id}>
-              <span>
-                {loan.fullName} - {loan.loanAmount}
-              </span>
-              <button onClick={() => updateStatus(loan.id, "approved")}>
-                Approve
-              </button>
-              <button onClick={() => updateStatus(loan.id, "denied")}>
-                Deny
-              </button>
-            </div>
-          ))}
-      </div>
-    </div>
+    </Container>
   );
 };
 

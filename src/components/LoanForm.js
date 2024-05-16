@@ -6,7 +6,7 @@ const LoanForm = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ fullName, loanAmount });
+    onSubmit({ fullName, loanAmount, status: "waiting decision" });
   };
 
   return (

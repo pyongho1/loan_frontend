@@ -10,17 +10,22 @@ const NonprofitView = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/loans")
-      .then((response) =>
-        setLoans(response.data.filter((loan) => loan.userId === userId))
-      )
+      .get(`http://localhost:5001/api/loans/${userId}`)
+      .then((response) => {
+        console.log("Fetched loans:", response.data); // Debugging line
+        setLoans(response.data);
+      })
       .catch((error) => console.error("Error fetching data:", error));
   }, [userId]);
 
   const addLoan = (loan) => {
+    loan.userId = userId; // Add userId to the loan
     axios
       .post("http://localhost:5001/api/loans", loan)
-      .then((response) => setLoans([...loans, response.data]))
+      .then((response) => {
+        console.log("Loan added:", response.data); // Debugging line
+        setLoans([...loans, response.data]);
+      })
       .catch((error) => console.error("Error adding loan:", error));
   };
 

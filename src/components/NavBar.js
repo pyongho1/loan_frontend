@@ -30,13 +30,13 @@ const NavBar = () => {
             </Navbar.Collapse>
           </Col>
           <Col xs="auto" className="d-flex align-items-center">
-            <Form className="d-flex">
+            {/* <Form className="d-flex">
               <FormControl
                 type="text"
                 placeholder="Search"
                 className="mr-sm-2"
               />
-            </Form>
+            </Form> */}
             <Button variant="primary" className="ml-2">
               <Nav.Link href="/approve">Manage Loans</Nav.Link>
             </Button>

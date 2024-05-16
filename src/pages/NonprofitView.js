@@ -24,7 +24,7 @@ const NonprofitView = () => {
       .post("http://localhost:5001/api/loans", loan)
       .then((response) => {
         console.log("Loan added:", response.data); // Debugging line
-        setLoans([...loans, response.data]);
+        setLoans([response.data, ...loans]); // Add new loan at the beginning
       })
       .catch((error) => console.error("Error adding loan:", error));
   };

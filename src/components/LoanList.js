@@ -9,6 +9,7 @@ const LoanList = ({ loans }) => (
         <th>Full Name</th>
         <th>Requested Loan Amount</th>
         <th>Approval Status</th>
+        <th>Created At</th>
       </tr>
     </thead>
     <tbody>
@@ -25,6 +26,14 @@ const LoanList = ({ loans }) => (
               {loan.status}
             </span>
           </td>
+          {/* <td>{new Date(loan.createdAt).toLocaleString()}</td>{" "} */}
+          <td>
+            {loan.createdAt
+              ? new Date(loan.createdAt).toLocaleString()
+              : "Invalid Date"}
+          </td>{" "}
+          {/* Display the createdAt field */}
+          {/* Display the createdAt field */}
         </tr>
       ))}
     </tbody>

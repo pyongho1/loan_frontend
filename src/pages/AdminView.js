@@ -9,6 +9,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
+import "./AdminView.css";
 
 const AdminView = () => {
   const [loans, setLoans] = useState([]);
@@ -30,12 +31,6 @@ const AdminView = () => {
         <Col>
           <Button variant="outline-secondary">All loans</Button>
           <Button variant="outline-secondary" className="ml-2">
-            Due soon
-          </Button>
-          <Button variant="outline-secondary" className="ml-2">
-            Overdue
-          </Button>
-          <Button variant="outline-secondary" className="ml-2">
             Approved
           </Button>
           <Button variant="outline-secondary" className="ml-2">
@@ -43,7 +38,7 @@ const AdminView = () => {
           </Button>
         </Col>
       </Row>
-      <h3>Active Loans</h3>
+      <h3>Loans Status</h3>
       <LoanList loans={loans} />
     </Container>
   );

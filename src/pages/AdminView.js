@@ -13,6 +13,7 @@ import "./AdminView.css";
 
 const AdminView = () => {
   const [loans, setLoans] = useState([]);
+  const [filter, setFilter] = useState("all"); // State to track current filter
 
   useEffect(() => {
     axios
@@ -20,6 +21,16 @@ const AdminView = () => {
       .then((response) => setLoans(response.data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
+
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+  };
+
+  // Filter loans based on the current filter state
+  const filteredLoans = loans.filter((loan) => {
+    if (filter === "all") return true;
+    return loan.status === filter;
+  });
 
   return (
     <Container>
@@ -29,17 +40,30 @@ const AdminView = () => {
       </Form>
       <Row className="mb-4">
         <Col>
-          <Button variant="outline-secondary">All loans</Button>
-          <Button variant="outline-secondary" className="ml-2">
+          <Button
+            variant="outline-secondary"
+            onClick={() => handleFilterChange("all")}
+          >
+            All loans
+          </Button>
+          <Button
+            variant="outline-secondary"
+            className="ml-2"
+            onClick={() => handleFilterChange("approved")}
+          >
             Approved
           </Button>
-          <Button variant="outline-secondary" className="ml-2">
+          <Button
+            variant="outline-secondary"
+            className="ml-2"
+            onClick={() => handleFilterChange("denied")}
+          >
             Declined
           </Button>
         </Col>
       </Row>
       <h3>Loans Status</h3>
-      <LoanList loans={loans} />
+      <LoanList loans={filteredLoans} />
     </Container>
   );
 };

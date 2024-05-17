@@ -31,6 +31,21 @@ const NonprofitView = () => {
       .catch((error) => console.error("Error adding loan:", error));
   };
 
+  const updateLoanAmount = (id, loanAmount) => {
+    axios
+      .put(`http://localhost:5001/api/loans/${id}/amount`, { loanAmount })
+      .then((response) => {
+        setLoans(
+          loans.map((loan) =>
+            loan.id === id
+              ? { ...loan, loanAmount: response.data.loanAmount }
+              : loan
+          )
+        );
+      })
+      .catch((error) => console.error("Error updating loan amount:", error));
+  };
+
   return (
     <Container className="my-5">
       <Row className="mb-4">
@@ -51,7 +66,7 @@ const NonprofitView = () => {
       <Row>
         <Col>
           <h3>Submitted Loans</h3>
-          <LoanList loans={loans} />
+          <LoanList loans={loans} onUpdateLoanAmount={updateLoanAmount} />
         </Col>
       </Row>
     </Container>

@@ -19,23 +19,27 @@ This is the frontend application for the Loan Management App, built using React 
 
 ## Installation
 
-```bash
 1. Clone the repository:
+
+```bash
 git clone <repository-url>
 cd frontend
 ```
 
-```bash
 2. Install dependencies:
+
+```bash
 npm install
 ```
 
-```bash
 3. Start development server:
+
+```bash
    npm start
 ```
 
-```bash
 4. Open your browser and go into:
+
+```bash
    http://localhost:3000
 ```

@@ -8,7 +8,7 @@ const Home = () => {
     applied: 0,
     approved: 0,
     denied: 0,
-    waiting: 0, // Add waiting decision status
+    waiting: 0,
   });
 
   const [monthlyData, setMonthlyData] = useState({
@@ -33,12 +33,10 @@ const Home = () => {
 
         setLoanData({ applied, approved, denied, waiting });
 
-        // Process data for the line chart (monthly repayments)
-        const monthlyCounts = new Array(7).fill(0); // Assuming data for 7 months (Jan-Jul)
+        const monthlyCounts = new Array(7).fill(0); // Assuming data for (Jan-Jul)
         loans.forEach((loan) => {
           const month = new Date(loan.createdAt).getMonth();
           if (month >= 0 && month < 7) {
-            // Adjust this range as per your data
             monthlyCounts[month]++;
           }
         });

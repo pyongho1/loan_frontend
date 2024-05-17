@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Table, Button, FormControl } from "react-bootstrap";
 import { format, toZonedTime } from "date-fns-tz";
-import "./LoanList.css"; // Import the CSS file for custom styles
+import "./LoanList.css";
 
 const LoanList = ({ loans, onUpdateLoanAmount }) => {
   const timeZone = "America/Los_Angeles";

@@ -14,19 +14,19 @@ const NonprofitView = () => {
     axios
       .get(`http://localhost:5001/api/loans/${userId}`)
       .then((response) => {
-        console.log("Fetched loans:", response.data); // Debugging line
+        console.log("Fetched loans:", response.data);
         setLoans(response.data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, [userId]);
 
   const addLoan = (loan) => {
-    loan.userId = userId; // Add userId to the loan
+    loan.userId = userId;
     axios
       .post("http://localhost:5001/api/loans", loan)
       .then((response) => {
-        console.log("Loan added:", response.data); // Debugging line
-        setLoans([response.data, ...loans]); // Add new loan at the beginning
+        console.log("Loan added:", response.data);
+        setLoans([response.data, ...loans]);
       })
       .catch((error) => console.error("Error adding loan:", error));
   };

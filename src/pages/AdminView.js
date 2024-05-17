@@ -13,8 +13,8 @@ import "./AdminView.css";
 
 const AdminView = () => {
   const [loans, setLoans] = useState([]);
-  const [filter, setFilter] = useState("all"); // State to track current filter
-  const [searchQuery, setSearchQuery] = useState(""); // State to track search query
+  const [filter, setFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     axios

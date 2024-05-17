@@ -14,6 +14,7 @@ import "./AdminView.css";
 const AdminView = () => {
   const [loans, setLoans] = useState([]);
   const [filter, setFilter] = useState("all"); // State to track current filter
+  const [searchQuery, setSearchQuery] = useState(""); // State to track search query
 
   useEffect(() => {
     axios
@@ -26,17 +27,32 @@ const AdminView = () => {
     setFilter(newFilter);
   };
 
-  // Filter loans based on the current filter state
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  // Filter loans based on the current filter state and search query
   const filteredLoans = loans.filter((loan) => {
-    if (filter === "all") return true;
-    return loan.status === filter;
+    if (filter === "all" && !searchQuery) return true;
+
+    const matchesFilter = filter === "all" || loan.status === filter;
+    const matchesSearch = loan.fullName
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    return matchesFilter && matchesSearch;
   });
 
   return (
     <Container>
       <h2 className="mt-4">Overview</h2>
       <Form className="my-4">
-        <FormControl type="text" placeholder="Search loan" />
+        <FormControl
+          type="text"
+          placeholder="Search loan by name"
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
       </Form>
       <Row className="mb-4">
         <Col>

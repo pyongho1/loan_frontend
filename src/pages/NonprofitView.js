@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import LoanForm from "../components/LoanForm";
 import LoanList from "../components/LoanList";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const NonprofitView = () => {
   const { userId } = useParams();
@@ -30,11 +32,29 @@ const NonprofitView = () => {
   };
 
   return (
-    <div>
-      <h2>Nonprofit View</h2>
-      <LoanForm onSubmit={addLoan} />
-      <LoanList loans={loans} />
-    </div>
+    <Container className="my-5">
+      <Row className="mb-4">
+        <Col>
+          <h2>Nonprofit View</h2>
+        </Col>
+      </Row>
+      <Row className="mb-4">
+        <Col>
+          <Card>
+            <Card.Body>
+              <Card.Title>Add a New Loan</Card.Title>
+              <LoanForm onSubmit={addLoan} />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h3>Submitted Loans</h3>
+          <LoanList loans={loans} />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

@@ -40,7 +40,7 @@ const NavBar = () => {
             <Button variant="primary" className="ml-2">
               <Nav.Link href="/approve">Manage Loans</Nav.Link>
             </Button>
-            <div
+            {/* <div
               style={{
                 width: "40px",
                 height: "40px",
@@ -48,7 +48,7 @@ const NavBar = () => {
                 borderRadius: "50%",
                 marginLeft: "10px",
               }}
-            ></div>
+            ></div> */}
           </Col>
         </Row>
       </Container>

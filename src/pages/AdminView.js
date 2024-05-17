@@ -31,15 +31,27 @@ const AdminView = () => {
     setSearchQuery(event.target.value);
   };
 
-  // Filter loans based on the current filter state and search query
+  const handleUpdateLoanAmount = (id, updatedAmount) => {
+    axios
+      .put(`http://localhost:5001/api/loans/${id}/amount`, {
+        loanAmount: updatedAmount,
+      })
+      .then((response) => {
+        setLoans(
+          loans.map((loan) =>
+            loan.id === id ? { ...loan, loanAmount: updatedAmount } : loan
+          )
+        );
+      })
+      .catch((error) => console.error("Error updating loan amount:", error));
+  };
+
   const filteredLoans = loans.filter((loan) => {
     if (filter === "all" && !searchQuery) return true;
-
     const matchesFilter = filter === "all" || loan.status === filter;
     const matchesSearch = loan.fullName
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
-
     return matchesFilter && matchesSearch;
   });
 
@@ -79,7 +91,10 @@ const AdminView = () => {
         </Col>
       </Row>
       <h3>Loans Status</h3>
-      <LoanList loans={filteredLoans} />
+      <LoanList
+        loans={filteredLoans}
+        onUpdateLoanAmount={handleUpdateLoanAmount}
+      />
     </Container>
   );
 };

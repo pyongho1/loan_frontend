@@ -46,6 +46,15 @@ const NonprofitView = () => {
       .catch((error) => console.error("Error updating loan amount:", error));
   };
 
+  const deleteLoan = (id) => {
+    axios
+      .delete(`http://localhost:5001/api/loans/${id}`)
+      .then(() => {
+        setLoans(loans.filter((loan) => loan.id !== id));
+      })
+      .catch((error) => console.error("Error deleting loan:", error));
+  };
+
   return (
     <Container className="my-5">
       <Row className="mb-4">
@@ -66,7 +75,11 @@ const NonprofitView = () => {
       <Row>
         <Col>
           <h3>Submitted Loans</h3>
-          <LoanList loans={loans} onUpdateLoanAmount={updateLoanAmount} />
+          <LoanList
+            loans={loans}
+            onUpdateLoanAmount={updateLoanAmount}
+            onDeleteLoan={deleteLoan}
+          />
         </Col>
       </Row>
     </Container>

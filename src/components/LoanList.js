@@ -3,7 +3,7 @@ import { Table, Button, FormControl } from "react-bootstrap";
 import { format, toZonedTime } from "date-fns-tz";
 import "./LoanList.css";
 
-const LoanList = ({ loans, onUpdateLoanAmount }) => {
+const LoanList = ({ loans, onUpdateLoanAmount, onDeleteLoan }) => {
   const timeZone = "America/Los_Angeles";
   const [editId, setEditId] = useState(null);
   const [editAmount, setEditAmount] = useState("");
@@ -17,6 +17,10 @@ const LoanList = ({ loans, onUpdateLoanAmount }) => {
     onUpdateLoanAmount(id, editAmount);
     setEditId(null);
     setEditAmount("");
+  };
+
+  const handleDeleteClick = (id) => {
+    onDeleteLoan(id);
   };
 
   return (
@@ -65,22 +69,33 @@ const LoanList = ({ loans, onUpdateLoanAmount }) => {
                 {loan.createdAt ? formattedDate : "Invalid Date"}
               </td>
               <td className="text-center">
-                {loan.status === "waiting decision" &&
-                  (editId === loan.id ? (
+                {loan.status === "waiting decision" && (
+                  <>
+                    {editId === loan.id ? (
+                      <Button
+                        variant="success"
+                        onClick={() => handleSaveClick(loan.id)}
+                        className="mr-2"
+                      >
+                        Save
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="warning"
+                        onClick={() => handleEditClick(loan)}
+                        className="mr-2"
+                      >
+                        Edit
+                      </Button>
+                    )}
                     <Button
-                      variant="success"
-                      onClick={() => handleSaveClick(loan.id)}
+                      variant="danger"
+                      onClick={() => handleDeleteClick(loan.id)}
                     >
-                      Save
+                      Delete
                     </Button>
-                  ) : (
-                    <Button
-                      variant="warning"
-                      onClick={() => handleEditClick(loan)}
-                    >
-                      Edit
-                    </Button>
-                  ))}
+                  </>
+                )}
               </td>
             </tr>
           );
